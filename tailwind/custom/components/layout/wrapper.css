@@ -1,0 +1,10 @@
+.wrapper {
+    max-width: var(--wp--style--global--content-size);
+    padding-left: var(--global-content-edge-padding);
+    padding-right: var(--global-content-edge-padding);
+    @apply w-full mx-auto relative;
+
+    &--wide {
+        max-width: var(--wp--style--global--wide-size);
+    }
+}

@@ -1,0 +1,94 @@
+/**
+ * Custom styles to immediately follow Tailwind’s `base` layer
+ *
+ * “Add things like base typography styles [or] opinionated global resets.”
+ *
+ * — from https://tailwindcss.com/docs/plugins#adding-base-styles
+ */
+
+/**
+ * This uses the background and foreground colors declared in the
+ * `theme.json` file and is applied both to the frontend and in the block
+ * editor.
+*/
+body {
+    --global-content-edge-padding: 2rem;
+    @media (max-width: theme('screens.md')) {
+        --global-content-edge-padding: 1rem;
+    }
+
+	@each $name, $size in (x-small, small, medium, large, x-large, 2-xl, 3-xl, 4-xl, 5-xl, 6-xl, 7-xl), (1.333, 1.429, 1.5, 1.555, 1.4, 1.333, 1.2, 1.111, 1, 1, 1) {
+		--line-height--$(name): $size;
+	}
+
+	/**
+	* We don't need to define these variables explicitly
+	* at desktop size because they're generated for us via 
+	* the sizes we defined in the `theme.json`, so we can just
+	* update them at the medium breakpoint.
+	*/
+	@media (max-width: theme('screens.md')) {
+		@each $name, $size in (x-large, 2-xl, 3-xl, 4-xl, 5-xl, 6-xl, 7-xl, 8-xl, 9-xl), (1rem, 1.125rem, 1.25rem, 1.5rem, 1.875rem, 2.25rem, 3rem, 3.75rem, 4.5rem) {
+			--wp--preset--font-size--$(name): $size;
+		}
+	}
+}
+
+@each $name, $height in (x-small, small, medium, large, x-large, 2-xl, 3-xl, 4-xl, 5-xl, 6-xl, 7-xl, 8-xl, 9-xl), (x-small, small, medium, large, x-large, 2-xl, 3-xl, 4-xl, 5-xl, 6-xl, 7-xl, 8-xl, 9-xl) {
+    .has-$(name)-font-size {
+        line-height: var(--line-height--$(height));
+    }
+}
+
+@layer base {
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-bold;
+    }
+    h1 {
+        @apply text-6xl;
+    }
+    h2 {
+        @apply text-5xl;
+    }
+    h3 {
+        @apply text-4xl;
+    }
+    h4 {
+        @apply text-3xl;
+    }
+    h5 {
+        @apply text-2xl;
+    }
+    h6 {
+        @apply text-xl;
+    }
+}
+
+::selection {
+    background: theme('colors.black')33;
+    color: inherit;
+    text-shadow: none;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-feature-settings: "liga" on;
+    -moz-font-feature-settings: "liga" on;
+    text-rendering: optimizeLegibility;
+}
+
+html {
+    font-size: 1em;
+    scroll-behavior: smooth;
+}
+
+
+body {
+    @apply bg-white text-black font-sans text-base leading-[var(--line-height--medium)];
+}
+
+.entry-content {
+    position: relative;
+    z-index: 0;
+}
